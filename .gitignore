@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Sqlite dll
+sqlite-netFx46-static-binary-x64-2015-1.0.119.0/
