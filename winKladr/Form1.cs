@@ -21,7 +21,10 @@ namespace winKladr
         static string pathDb = Directory.GetCurrentDirectory() + @"\db\kladr.db";
         string connectionStr = $@"Data Source={pathDb};Version=3;Read Only=True;";
         DataTable dtRegion;
+        DataTable dtDistrict;
         int MaxDropDownItems = 10;
+        string RegionCode;
+        string DistrictCode;
 
         public Form1()
         {
@@ -59,6 +62,54 @@ namespace winKladr
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void cbRegion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbRegion.SelectedIndex == -1) return;
+
+            RegionCode = cbRegion.SelectedValue.ToString();
+
+            try
+            {
+                SQLiteConnection con = new SQLiteConnection(connectionStr);
+                con.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(con);
+                cmd.CommandText = $@"SELECT concat_ws (' ', name, socr) as name, code FROM kladr 
+                                     WHERE code LIKE '{RegionCode}___00000000' AND NOT code='{RegionCode}00000000000';";
+
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                dtDistrict = new DataTable();
+
+                dtDistrict.Load(rdr);
+
+                cbDistrict.DisplayMember = "name"; // !!!! здесь указываем тот аттрибут (или синоним) который мы прописли в SQL запросе
+                cbDistrict.DataSource = dtDistrict;
+                cbDistrict.ValueMember = "code";
+
+                // состояние в котором ничего не выбрано
+                cbDistrict.SelectedIndex = -1;
+
+                /*
+                 * When this property is set to true, the control automatically resizes to ensure that an item is not partially displayed. If you want to maintain the original size of the ComboBox based on the space requirements of your form, set this property to false.
+                 */
+                cbDistrict.MaxDropDownItems = MaxDropDownItems;
+                cbDistrict.IntegralHeight = false;  //
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void cbDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbDistrict.SelectedIndex == -1) return;
+
+            DistrictCode = cbDistrict.SelectedValue.ToString().Substring(2,3);
         }
     }
 }

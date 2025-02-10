@@ -35,6 +35,7 @@ namespace winKladr
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbDistrict = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -44,13 +45,14 @@ namespace winKladr
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.cbDistrict);
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cbRegion);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 149);
+            this.groupBox1.Size = new System.Drawing.Size(760, 161);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "По отдельности";
@@ -62,11 +64,12 @@ namespace winKladr
             this.cbRegion.Name = "cbRegion";
             this.cbRegion.Size = new System.Drawing.Size(594, 32);
             this.cbRegion.TabIndex = 1;
+            this.cbRegion.SelectedIndexChanged += new System.EventHandler(this.cbRegion_SelectedIndexChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 113);
+            this.label3.Location = new System.Drawing.Point(6, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(65, 24);
             this.label3.TabIndex = 0;
@@ -75,7 +78,7 @@ namespace winKladr
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 78);
+            this.label2.Location = new System.Drawing.Point(6, 122);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(142, 24);
             this.label2.TabIndex = 0;
@@ -89,6 +92,15 @@ namespace winKladr
             this.label1.Size = new System.Drawing.Size(75, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "Регион";
+            // 
+            // cbDistrict
+            // 
+            this.cbDistrict.FormattingEnabled = true;
+            this.cbDistrict.Location = new System.Drawing.Point(160, 75);
+            this.cbDistrict.Name = "cbDistrict";
+            this.cbDistrict.Size = new System.Drawing.Size(594, 32);
+            this.cbDistrict.TabIndex = 2;
+            this.cbDistrict.SelectedIndexChanged += new System.EventHandler(this.cbDistrict_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -117,6 +129,7 @@ namespace winKladr
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbRegion;
+        private System.Windows.Forms.ComboBox cbDistrict;
     }
 }
 
