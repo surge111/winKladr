@@ -18,18 +18,47 @@ namespace winKladr
 {
     public partial class Form1 : Form
     {
+        static string pathDb = Directory.GetCurrentDirectory() + @"\db\kladr.db";
+        string connectionStr = $@"Data Source={pathDb};Version=3;Read Only=True;";
+        DataTable dtRegion;
+        int MaxDropDownItems = 10;
+
         public Form1()
         {
             InitializeComponent();
 
-            string pathDb = Directory.GetCurrentDirectory() + @"\db\kladr.db";
-            string connectionStr = $@"Data Source={pathDb};Version=3;Read Only=True;";
+            try
+            {
+                SQLiteConnection con = new SQLiteConnection(connectionStr);
+                con.Open();
 
-            SQLiteConnection con = new SQLiteConnection(connectionStr);
-            con.Open();
+                SQLiteCommand cmd = new SQLiteCommand(con);
+                cmd.CommandText = $@"SELECT * FROM region";
 
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                dtRegion = new DataTable();
 
-            con.Close();
+                dtRegion.Load(rdr);
+
+                cbRegion.DisplayMember = "name"; // !!!! здесь указываем тот аттрибут (или синоним) который мы прописли в SQL запросе
+                cbRegion.DataSource = dtRegion;
+                cbRegion.ValueMember = "code";
+
+                // состояние в котором ничего не выбрано
+                cbRegion.SelectedIndex = -1;
+
+                /*
+                 * When this property is set to true, the control automatically resizes to ensure that an item is not partially displayed. If you want to maintain the original size of the ComboBox based on the space requirements of your form, set this property to false.
+                 */
+                cbRegion.MaxDropDownItems = MaxDropDownItems;
+                cbRegion.IntegralHeight = false;  //
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
