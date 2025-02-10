@@ -36,6 +36,7 @@ namespace winKladr
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbDistrict = new System.Windows.Forms.ComboBox();
+            this.cbCity = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +46,7 @@ namespace winKladr
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.cbCity);
             this.groupBox1.Controls.Add(this.cbDistrict);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cbRegion);
@@ -102,6 +104,15 @@ namespace winKladr
             this.cbDistrict.TabIndex = 2;
             this.cbDistrict.SelectedIndexChanged += new System.EventHandler(this.cbDistrict_SelectedIndexChanged);
             // 
+            // cbCity
+            // 
+            this.cbCity.FormattingEnabled = true;
+            this.cbCity.Location = new System.Drawing.Point(160, 114);
+            this.cbCity.Name = "cbCity";
+            this.cbCity.Size = new System.Drawing.Size(594, 32);
+            this.cbCity.TabIndex = 3;
+            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -130,6 +141,7 @@ namespace winKladr
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbRegion;
         private System.Windows.Forms.ComboBox cbDistrict;
+        private System.Windows.Forms.ComboBox cbCity;
     }
 }
 

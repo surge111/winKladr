@@ -22,9 +22,11 @@ namespace winKladr
         string connectionStr = $@"Data Source={pathDb};Version=3;Read Only=True;";
         DataTable dtRegion;
         DataTable dtDistrict;
+        DataTable dtCity;
         int MaxDropDownItems = 10;
         string RegionCode;
         string DistrictCode;
+        string FullCode;
 
         public Form1()
         {
@@ -110,6 +112,49 @@ namespace winKladr
             if (cbDistrict.SelectedIndex == -1) return;
 
             DistrictCode = cbDistrict.SelectedValue.ToString().Substring(2,3);
+
+            try
+            {
+                SQLiteConnection con = new SQLiteConnection(connectionStr);
+                con.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(con);
+                cmd.CommandText = $@"SELECT concat_ws (' ', socr, name) as name, code, `index` FROM kladr 
+                                     WHERE code LIKE '{RegionCode}{DistrictCode}%00' 
+                                           AND NOT 
+                                           code='{RegionCode}{DistrictCode}00000000' ORDER BY name;";
+
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                dtCity = new DataTable();
+
+                dtCity.Load(rdr);
+
+                cbCity.DisplayMember = "name"; // !!!! здесь указываем тот аттрибут (или синоним) который мы прописли в SQL запросе
+                cbCity.DataSource = dtCity;
+                cbCity.ValueMember = "code";
+
+                // состояние в котором ничего не выбрано
+                cbCity.SelectedIndex = -1;
+
+                /*
+                 * When this property is set to true, the control automatically resizes to ensure that an item is not partially displayed. If you want to maintain the original size of the ComboBox based on the space requirements of your form, set this property to false.
+                 */
+                cbCity.MaxDropDownItems = MaxDropDownItems;
+                cbCity.IntegralHeight = false;  //
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbCity.SelectedIndex == -1) return;
+
+            FullCode = cbCity.SelectedValue.ToString();
         }
     }
 }
