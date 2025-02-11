@@ -150,11 +150,15 @@ namespace winKladr
             }
         }
 
-        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbCity_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            if (cbCity.SelectedIndex == -1) return;
-
             FullCode = cbCity.SelectedValue.ToString();
+            
+            DataRow[] r = dtCity.Select($"code = {FullCode}");
+
+            string path = $"{r[0].ItemArray[2].ToString()}, {cbRegion.Text}, {cbDistrict.Text}, {r[0].ItemArray[0].ToString()}";
+
+            FullAddress.Text = path;
         }
     }
 }
