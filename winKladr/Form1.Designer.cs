@@ -94,7 +94,7 @@ namespace winKladr
             this.cbStreet.Name = "cbStreet";
             this.cbStreet.Size = new System.Drawing.Size(594, 32);
             this.cbStreet.TabIndex = 6;
-            this.cbStreet.SelectedIndexChanged += new System.EventHandler(this.cbStreet_SelectedIndexChanged);
+            this.cbStreet.SelectionChangeCommitted += new System.EventHandler(this.cbStreet_SelectionChangeCommitted);
             // 
             // label4
             // 
@@ -119,7 +119,7 @@ namespace winKladr
             this.cbCity.Name = "cbCity";
             this.cbCity.Size = new System.Drawing.Size(594, 32);
             this.cbCity.TabIndex = 3;
-            this.cbCity.SelectedIndexChanged += new System.EventHandler(this.cbCity_SelectedIndexChanged);
+            this.cbCity.SelectionChangeCommitted += new System.EventHandler(this.cbCity_SelectionChangeCommitted);
             // 
             // cbDistrict
             // 
@@ -128,7 +128,7 @@ namespace winKladr
             this.cbDistrict.Name = "cbDistrict";
             this.cbDistrict.Size = new System.Drawing.Size(594, 32);
             this.cbDistrict.TabIndex = 2;
-            this.cbDistrict.SelectedIndexChanged += new System.EventHandler(this.cbDistrict_SelectedIndexChanged);
+            this.cbDistrict.SelectionChangeCommitted += new System.EventHandler(this.cbDistrict_SelectionChangeCommitted);
             // 
             // label2
             // 
@@ -146,7 +146,7 @@ namespace winKladr
             this.cbRegion.Name = "cbRegion";
             this.cbRegion.Size = new System.Drawing.Size(594, 32);
             this.cbRegion.TabIndex = 1;
-            this.cbRegion.SelectedIndexChanged += new System.EventHandler(this.cbRegion_SelectedIndexChanged);
+            this.cbRegion.SelectionChangeCommitted += new System.EventHandler(this.cbRegion_SelectionChangeCommitted);
             // 
             // label3
             // 

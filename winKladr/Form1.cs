@@ -70,7 +70,7 @@ namespace winKladr
             }
         }
 
-        private void cbRegion_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbRegion_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbRegion.SelectedIndex == -1) return;
 
@@ -111,11 +111,11 @@ namespace winKladr
             }
         }
 
-        private void cbDistrict_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbDistrict_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbDistrict.SelectedIndex == -1) return;
 
-            DistrictCode = cbDistrict.SelectedValue.ToString().Substring(2,3);
+            DistrictCode = cbDistrict.SelectedValue.ToString().Substring(2, 3);
 
             try
             {
@@ -153,7 +153,8 @@ namespace winKladr
                 MessageBox.Show(ex.ToString());
             }
         }
-        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void cbCity_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (cbCity.SelectedIndex == -1) return;
 
@@ -198,8 +199,9 @@ namespace winKladr
             }
         }
 
-        private void cbStreet_SelectedIndexChanged(object sender, EventArgs e)
-        {   
+
+        private void cbStreet_SelectionChangeCommitted(object sender, EventArgs e)
+        {
             if (cbStreet.SelectedIndex == -1) return;
 
             StreetCode = cbStreet.SelectedValue.ToString();
@@ -256,5 +258,6 @@ namespace winKladr
 
             FullAddress.Text = path;
         }
+        
     }
 }
