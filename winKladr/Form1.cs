@@ -109,6 +109,13 @@ namespace winKladr
             {
                 MessageBox.Show(ex.ToString());
             }
+            finally
+            {
+                cbCity.DataSource = null;
+                cbStreet.DataSource = null;
+                cbHome.Items.Clear(); cbHome.Text = null;
+                FullAddress.Text = "";
+            }
         }
 
         private void cbDistrict_SelectionChangeCommitted(object sender, EventArgs e)
@@ -151,6 +158,12 @@ namespace winKladr
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                cbStreet.DataSource = null;
+                cbHome.Items.Clear(); cbHome.Text = null;
+                FullAddress.Text = "";
             }
         }
 
@@ -197,6 +210,11 @@ namespace winKladr
             {
                 MessageBox.Show(ex.ToString());
             }
+            finally
+            {
+                cbHome.Items.Clear(); cbHome.Text = null;
+                FullAddress.Text = "";
+            }
         }
 
 
@@ -223,6 +241,7 @@ namespace winKladr
                 string homes;
 
                 cbHome.Items.Clear();
+                cbHome.Text = null;
 
                 while (rdr.Read())
                 {
@@ -247,6 +266,10 @@ namespace winKladr
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                FullAddress.Text = "";
             }
         }
 
