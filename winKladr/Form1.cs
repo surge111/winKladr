@@ -23,10 +23,12 @@ namespace winKladr
         DataTable dtRegion;
         DataTable dtDistrict;
         DataTable dtCity;
+        DataTable dtStreet;
         int MaxDropDownItems = 10;
         string RegionCode;
         string DistrictCode;
         string FullCode;
+        string StreetCode;
 
         public Form1()
         {
@@ -149,16 +151,58 @@ namespace winKladr
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        private void cbCity_SelectionChangeCommitted(object sender, EventArgs e)
+        private void cbCity_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cbCity.SelectedIndex == -1) return;
+
             FullCode = cbCity.SelectedValue.ToString();
-            
-            DataRow[] r = dtCity.Select($"code = {FullCode}");
+            //FullCode = FullCode.Remove(FullCode.Length - 2); // удаление из кода блока актуальности объекта
 
-            string path = $"{r[0].ItemArray[2].ToString()}, {cbRegion.Text}, {cbDistrict.Text}, {r[0].ItemArray[0].ToString()}";
+            try
+            {
+                SQLiteConnection con = new SQLiteConnection(connectionStr);
+                con.Open();
 
-            FullAddress.Text = path;
+                SQLiteCommand cmd = new SQLiteCommand(con);
+                cmd.CommandText = $@"SELECT CONCAT_WS(' ', socr, name) as `name`, 
+                                            code, 
+                                            `index` FROM street 
+                                     WHERE code LIKE '{FullCode.Remove(FullCode.Length - 2)}%00' 
+                                     ORDER BY `name`;";
+
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                dtStreet = new DataTable();
+
+                dtStreet.Load(rdr);
+
+                cbStreet.DisplayMember = "name"; // !!!! здесь указываем тот аттрибут (или синоним) который мы прописли в SQL запросе
+                cbStreet.DataSource = dtStreet;
+                cbStreet.ValueMember = "code";
+
+                // состояние в котором ничего не выбрано
+                cbStreet.SelectedIndex = -1;
+
+                /*
+                 * When this property is set to true, the control automatically resizes to ensure that an item is not partially displayed. If you want to maintain the original size of the ComboBox based on the space requirements of your form, set this property to false.
+                 */
+                cbStreet.MaxDropDownItems = MaxDropDownItems;
+                cbStreet.IntegralHeight = false;  //
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
+
+        private void cbStreet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //DataRow[] r = dtCity.Select($"code = {FullCode}");
+
+            //string path = $"{r[0].ItemArray[2].ToString()}, {cbRegion.Text}, {cbDistrict.Text}, {r[0].ItemArray[0].ToString()}";
+
+            //FullAddress.Text = path;
+        }        
     }
 }
