@@ -29,6 +29,8 @@ namespace winKladr
         string DistrictCode;
         string FullCode;
         string StreetCode;
+        string PostIndex;
+        string Socr;
 
         public Form1()
         {
@@ -197,12 +199,62 @@ namespace winKladr
         }
 
         private void cbStreet_SelectedIndexChanged(object sender, EventArgs e)
+        {   
+            if (cbStreet.SelectedIndex == -1) return;
+
+            StreetCode = cbStreet.SelectedValue.ToString();
+            //StreetCode = StreetCode.Remove(StreetCode.Length - 2); // удаление из кода блока актуальности объекта
+
+            try
+            {
+                SQLiteConnection con = new SQLiteConnection(connectionStr);
+                con.Open();
+
+                SQLiteCommand cmd = new SQLiteCommand(con);
+                cmd.CommandText = $@"SELECT name, socr, code, `index` 
+                                     FROM doma 
+                                     WHERE 
+                                            code LIKE '{StreetCode.Remove(StreetCode.Length - 2)}%' AND `index` NOT NULL 
+                                     ORDER BY name;";
+
+                SQLiteDataReader rdr = cmd.ExecuteReader();
+                string homes;
+
+                cbHome.Items.Clear();
+
+                while (rdr.Read())
+                {
+                    PostIndex = rdr["index"].ToString();        // можно убрать из цикла; индекс одинаковый для всех домов на улице
+                    Socr = rdr["socr"].ToString();              // можно убрать из цикла;
+                    homes = rdr["name"].ToString();
+
+                    cbHome.Items.AddRange(homes.Split(','));
+                }
+
+                // состояние в котором ничего не выбрано
+                cbHome.SelectedIndex = -1;
+
+                /*
+                 * When this property is set to true, the control automatically resizes to ensure that an item is not partially displayed. If you want to maintain the original size of the ComboBox based on the space requirements of your form, set this property to false.
+                 */
+                cbHome.MaxDropDownItems = MaxDropDownItems;
+                cbHome.IntegralHeight = false;  //
+
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void cbHome_SelectionChangeCommitted(object sender, EventArgs e)
         {
             //DataRow[] r = dtCity.Select($"code = {FullCode}");
 
-            //string path = $"{r[0].ItemArray[2].ToString()}, {cbRegion.Text}, {cbDistrict.Text}, {r[0].ItemArray[0].ToString()}";
+            string path = $"{PostIndex}, {cbRegion.Text}, {cbDistrict.Text}, {cbCity.Text}, {cbStreet.Text}, {Socr.ToLower()} {cbHome.SelectedItem.ToString()}";
 
-            //FullAddress.Text = path;
-        }        
+            FullAddress.Text = path;
+        }
     }
 }

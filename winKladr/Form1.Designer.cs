@@ -31,6 +31,10 @@ namespace winKladr
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbHome = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cbStreet = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.FullAddress = new System.Windows.Forms.TextBox();
             this.cbCity = new System.Windows.Forms.ComboBox();
             this.cbDistrict = new System.Windows.Forms.ComboBox();
@@ -38,8 +42,6 @@ namespace winKladr
             this.cbRegion = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbStreet = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +51,8 @@ namespace winKladr
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.White;
+            this.groupBox1.Controls.Add(this.cbHome);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.cbStreet);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.FullAddress);
@@ -60,15 +64,50 @@ namespace winKladr
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 259);
+            this.groupBox1.Size = new System.Drawing.Size(760, 282);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "По отдельности";
             // 
+            // cbHome
+            // 
+            this.cbHome.FormattingEnabled = true;
+            this.cbHome.Location = new System.Drawing.Point(160, 196);
+            this.cbHome.Name = "cbHome";
+            this.cbHome.Size = new System.Drawing.Size(594, 32);
+            this.cbHome.TabIndex = 8;
+            this.cbHome.SelectionChangeCommitted += new System.EventHandler(this.cbHome_SelectionChangeCommitted);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 199);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 24);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Дом";
+            // 
+            // cbStreet
+            // 
+            this.cbStreet.FormattingEnabled = true;
+            this.cbStreet.Location = new System.Drawing.Point(160, 155);
+            this.cbStreet.Name = "cbStreet";
+            this.cbStreet.Size = new System.Drawing.Size(594, 32);
+            this.cbStreet.TabIndex = 6;
+            this.cbStreet.SelectedIndexChanged += new System.EventHandler(this.cbStreet_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 163);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 24);
+            this.label4.TabIndex = 5;
+            this.label4.Text = "Улица";
+            // 
             // FullAddress
             // 
-            this.FullAddress.Enabled = false;
-            this.FullAddress.Location = new System.Drawing.Point(10, 224);
+            this.FullAddress.Location = new System.Drawing.Point(10, 247);
             this.FullAddress.Name = "FullAddress";
             this.FullAddress.Size = new System.Drawing.Size(744, 29);
             this.FullAddress.TabIndex = 4;
@@ -127,24 +166,6 @@ namespace winKladr
             this.label1.TabIndex = 0;
             this.label1.Text = "Регион";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 163);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 24);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Улица";
-            // 
-            // cbStreet
-            // 
-            this.cbStreet.FormattingEnabled = true;
-            this.cbStreet.Location = new System.Drawing.Point(160, 155);
-            this.cbStreet.Name = "cbStreet";
-            this.cbStreet.Size = new System.Drawing.Size(594, 32);
-            this.cbStreet.TabIndex = 6;
-            this.cbStreet.SelectedIndexChanged += new System.EventHandler(this.cbStreet_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -177,6 +198,8 @@ namespace winKladr
         private System.Windows.Forms.TextBox FullAddress;
         private System.Windows.Forms.ComboBox cbStreet;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbHome;
+        private System.Windows.Forms.Label label5;
     }
 }
 
