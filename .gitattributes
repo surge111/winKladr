@@ -57,4 +57,4 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-winKladr/db/kladr.db filter=lfs diff=lfs merge=lfs -text
+
