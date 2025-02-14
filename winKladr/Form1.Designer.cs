@@ -67,7 +67,7 @@ namespace winKladr
             this.groupBox1.Size = new System.Drawing.Size(760, 282);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "По отдельности";
+            this.groupBox1.Text = "Вместе";
             // 
             // cbHome
             // 
