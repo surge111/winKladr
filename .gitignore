@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # Sqlite dll
 sqlite-netFx46-static-binary-x64-2015-1.0.119.0/
 sqlite-netFx46-static-binary-Win32-2015-1.0.119.0/
+winKladr/db/kladr.db
